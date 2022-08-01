@@ -1,0 +1,161 @@
+﻿<Window x:Class="Task12.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task12"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="625" Width="1000"
+        MinHeight="625" MinWidth="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="clientsListBox" Grid.ColumnSpan="1" SelectionChanged="clientsListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="10" Background="#FF5EBCED">
+                        <StackPanel Margin="5" Background="#FF5EBCED">
+                            <TextBlock FontSize="18">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                                        <Binding Path="FirstName"/>
+                                        <Binding Path="LastName"/>
+                                        <Binding Path="SecondName"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Text="{Binding StringFormat=Телефон: {0}, Path=Phone}"/>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Паспорт: {0} {1}">
+                                        <Binding Path="PassSerial"/>
+                                        <Binding Path="PassNum"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <GroupBox x:Name="groupBox" 
+                  Grid.Column="2"
+                  FontSize="16">
+            <GroupBox.Header>
+                <Label FontSize="20">Редактирование</Label>
+            </GroupBox.Header>
+            <StackPanel Name="panel">
+                <ComboBox Name="userComboBox" DisplayMemberPath="Name" SelectionChanged="userComboBox_SelectionChanged"></ComboBox>
+                <Label Content="Фамилия:" Target="{Binding ElementName=secondNameTextBox}" />
+                <TextBox x:Name="secondNameTextBox"
+                         VerticalAlignment="Top"
+                         TextWrapping="Wrap" 
+                         Margin="5,5,5,5" 
+                         FontSize="18" 
+                         Height="35">
+                    <TextBox.Text>
+                        <Binding Path="SecondName">
+                            <Binding.ValidationRules >
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Content="Имя:" Target="{Binding ElementName=firstNameTextBox}" />
+                <TextBox x:Name="firstNameTextBox"
+                         VerticalAlignment="Top"
+                         TextWrapping="Wrap" 
+                         Margin="5,5,5,5" 
+                         FontSize="18" 
+                         Height="35">
+                    <TextBox.Text>
+                        <Binding Path="FirstName">
+                            <Binding.ValidationRules >
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Content="Отчество:" Target="{Binding ElementName=lastNameTextBox}" />
+                <TextBox x:Name="lastNameTextBox"
+                         VerticalAlignment="Top"
+                         TextWrapping="Wrap" 
+                         Margin="5,5,5,5" 
+                         FontSize="18" 
+                         Height="35">
+                    <TextBox.Text>
+                        <Binding Path="LastName">
+                            <Binding.ValidationRules >
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Content="Телефон:" Target="{Binding ElementName=phoneTextBox}" />
+                <TextBox x:Name="phoneTextBox"
+                         VerticalAlignment="Top"
+                         TextWrapping="Wrap" 
+                         Margin="5,5,5,5" 
+                         FontSize="18" 
+                         Height="35">
+                    <TextBox.Text>
+                        <Binding Path="Phone">
+                            <Binding.ValidationRules >
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Content="Паспорт серия:" Target="{Binding ElementName=passSerialTextBox}" />
+                <TextBox x:Name="passSerialTextBox"
+                         VerticalAlignment="Top"
+                         TextWrapping="Wrap" 
+                         Margin="5,5,5,5" 
+                         FontSize="18" 
+                         Height="35">
+                    <TextBox.Text>
+                        <Binding Path="PassSerial">
+                            <Binding.ValidationRules >
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Content="Паспорт номер:" Target="{Binding ElementName=passNumTextBox}" />
+                <TextBox x:Name="passNumTextBox"
+                         VerticalAlignment="Top"
+                         TextWrapping="Wrap" 
+                         Margin="5,5,5,5" 
+                         FontSize="18" 
+                         Height="35">
+                    <TextBox.Text>
+                        <Binding Path="PassNum">
+                            <Binding.ValidationRules >
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="addDataBtn" 
+                            Margin="5" 
+                            Height="35" 
+                            Width="150"
+                            Content="Добавить" Click="addDataBtn_Click"/>
+                    <Button x:Name="saveDataBtn" 
+                            Margin="5" 
+                            Height="35" 
+                            Width="150"
+                            Content="Сохранить" Click="saveDataBtn_Click"/>
+                    <Button x:Name="deleteDataBtn" 
+                            Margin="5" 
+                            Height="35" 
+                            Width="150"
+                            Content="Удалить" Click="deleteDataBtn_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
